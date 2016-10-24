@@ -1,14 +1,22 @@
 """
 	Author: Liana Piedra
+	Edits: Jackson Warley
 	Created: March 2015
 	A program that generates feed cards for Claremont HVZ 
-	with a feed code and its corresponding feeding URL. 
+	with a feed code and its corresponding feeding URL.
 
+	This is a python2 program. If you get nameerrors it's because
+	you're running it as a python3 program. Stop doing that.
+
+	If you don't have it already, you need to install the python
+	package manager, pip, in order to install the following dependencies.
+	Then just run "pip install pyqrcode" and "pip install XlsxWriter" as
+	root in order to install them.
 
 	For pyqrcode: https://pypi.python.org/pypi/PyQRCode
 	Necessary to create the neat QR code image.
 
-	For xlsxwriter: http://xlsxwriter.readthedocs.org/en/latest/index.html
+	For xlsxwriter: http://xlsxwriter.readthedocs.io/contents.html
 	This website was a huge source, literally the coolest thing ever.
 	Does practically anything you would want to do in an Excel sheet.
 """
@@ -63,10 +71,13 @@ for number in range(1, numCodes+1):
 		'bold': True, 'size':10, 'font':'Rockwell', 'border':1})
 	nameCell = 'A'+num
 	qrCell = 'B'+num
-	worksheet.write(nameCell, 'Name:', name_format)
+	worksheet.write(nameCell, ' Name:', name_format) # the space in front is for alignment
 	worksheet.write(qrCell, '', name_format)
-	worksheet.insert_image(qrCell, 'hvz'+str(fileNum)+'.png', {'x_offset': 5, 
-		'y_offset': 5, 'x_scale': 0.26, 'y_scale': 0.26})
+	# These values are really finicky. The ones in the original code never worked for me so
+	# I figured these out by trial and error. This might just work for my system though so
+	# try changing them if things aren't lining up for you. -Jackson
+	worksheet.insert_image(qrCell, 'hvz'+str(fileNum)+'.png', {'x_offset': 6, 
+		'y_offset': 5, 'x_scale': 0.23, 'y_scale': 0.23})
 
 	# Insert each HVZ logo image
 	logoCell = 'C'+num
